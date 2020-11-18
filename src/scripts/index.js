@@ -98,3 +98,11 @@ const retrieveData = (username) => {
   
   retrieveData(githubData.username);
 
+  newUserName.addEventListener('keyup', function(){
+    retrieveData(newUserName.value);
+  })
+  
+  newUserName.addEventListener('blur', function(){
+    retrieveData(newUserName.value);
+  })
+
