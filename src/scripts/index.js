@@ -57,3 +57,44 @@ closeModal.addEventListener('click', function(){
     }
 })
 
+const retrieveData = (username) => {
+  
+    loader.classList.add('inline-block');
+    const query = queryFunc(username.trim());
+  
+    fetch('https://api.github.com/graphql', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `bearer ${githubData.token}`
+        },
+        body: JSON.stringify({query})
+    })
+    .then(response => response.json()
+    )
+    .then((data) => {
+        const result = data.data.user;
+        console.log(result);
+  
+        appendUserDetails(result)
+  
+        if (result.name !== null) {
+            nowShowing.innerHTML = `Now showing: <span class="now-showing-name">${result.name}</span>'s profile`
+        } else {
+            nowShowing.innerHTML = `Now showing: <span class="now-showing-name">${result.login}</span>'s profile`
+        }
+        loader.classList.remove('inline-block');
+    })
+    .catch((error) => {
+        if (username !== "lekeodewuyi") {
+            retrieveData("lekeodewuyi");
+        }
+        console.log('hey');
+        loader.classList.remove('inline-block');
+        console.error(error.json());
+    })
+  
+  }
+  
+  retrieveData(githubData.username);
+
