@@ -56,7 +56,7 @@ const queryFunc = (username) => {
   }
   
 
-  // This access token has a user data read only permission (read:user - can only read my publicly available GitHub data) so it's safe to use on the client-side
+  // This access token has a user data read only permission (*public access - can only read my publicly available GitHub data) so it's safe to use on the client-side
 
   // Ideally, I would use it on the backend and implement a Node.js cloud function to call the GitHub GraphQl api but wans't sure if you'd regard Node.js as a JS frmaework
 
