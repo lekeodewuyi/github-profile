@@ -75,3 +75,5 @@ const appendStar = () => {
         })
     })
 }
+
+export { isInViewport, relativeTime, appendChildFunc, appendStar, truncateText };
