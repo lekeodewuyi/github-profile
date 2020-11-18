@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Repositories</title>
+
+    <link rel="stylesheet" href="./src/css/reset.css">
+    <link rel="stylesheet" href="./src/css/index.css">
+
+    <script src="./src/scripts/index.js" defer type="module"></script>
+    
+</head>
+<body>
+    <div class="modal flex-col justify-center">
+        <div class="modal-close-btn absolute pointer" onclick="document.querySelector('.modal').className = 'modal flex-col justify-center hide'">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></svg>
+        </div>
+        <p>While the default data retrieved is mine, any user's public repository data can be loaded on this page simply by entering the user's username below. <br> * If an invalid username is used, the requested/ retrieved data falls back to mine.</p>
+        <div>
+            <input class="modal-input" type="text" placeholder="Enter any GitHub username" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
+            <span class="loader hide"></span>
+        </div>
+        <p class="modal-now-showing"></p>
+        <button class="modal-btn btn hide">Retrieve Data</button>
+        <div class="modal-prompt flex justify-center center-align hide">
+            <input type="checkbox">
+            <p>Do not show this message again</p>
+        </div>
+        <button class="btn modal-restore-data hide">Restore Leke's data</button>
+        <p class="modal-note">*If your internet connection speed is suboptimal, you might need to click the return(enter) key or click anywhere outside the input box when you're done typing.<br><br> You can bring back this prompt at anytime by clicking on any of the user avatars on the page or by double clicking anywhere on the page</p>
+        <div class="modal-prompt flex justify-center center-align">
+            <input type="checkbox" id="checkbox" class="checkbox">
+            <label for="checkbox">Don't show on startup</label>
+        </div>
+    </div>
+    <div class="upper-nav-bar flex center-align">
+        <div class="hamburger pointer nav-item hide">
+            <svg height="24" viewBox="0 0 16 16" version="1.1" width="24" aria-hidden="true"><path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z"></path></svg>
+        </div>
+        <div class="nav-util-section flex center-align">
+            <div class="nav-github-icon nav-item">
+                <a href="https://github.com" aria-label="Homepage">
+                    <svg height="32" width="32" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
+                    </svg>
+                </a>
+            </div>
+            <div class="nav-search nav-item max relative flex center-align">
+                <input type="text" placeholder="Search or jump to...">
+                <span class="search-icon">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="18px" viewBox="0 0 18 20" style="enable-background:new 0 0 19 20;" xml:space="preserve">
+                        <path fill="none" stroke="#979A9C" opacity="0.4" d="M3.5,0.5h12c1.7,0,3,1.3,3,3v13c0,1.7-1.3,3-3,3h-12c-1.7,0-3-1.3-3-3v-13C0.5,1.8,1.8,0.5,3.5,0.5z"></path>
+                        <path fill="#979A9C" d="M11.8,6L8,15.1H7.1L10.8,6L11.8,6z"></path>
+                    </svg>
+                </span>
+            </div>
+            <nav class="nav-links max flex">
+                <p class="nav-item pointer pull-request">Pull requests</p>
+                <p class="pulls nav-item hide pointer">Pulls</p>
+                <p class="nav-item pointer">Issues</p>
+                <p class="nav-item pointer">Marketplace</p>
+                <p class="nav-item pointer">Explore</p>
+            </nav>
+        </div>
+        <div class="nav-user-section flex center-align">
+            <div class="nav-notification nav-item pointer">
+                <span class="notification-badge"></span>
+                <div class="notification-bell">
+                    <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 16a2 2 0 001.985-1.75c.017-.137-.097-.25-.235-.25h-3.5c-.138 0-.252.113-.235.25A2 2 0 008 16z"></path><path fill-rule="evenodd" d="M8 1.5A3.5 3.5 0 004.5 5v2.947c0 .346-.102.683-.294.97l-1.703 2.556a.018.018 0 00-.003.01l.001.006c0 .002.002.004.004.006a.017.017 0 00.006.004l.007.001h10.964l.007-.001a.016.016 0 00.006-.004.016.016 0 00.004-.006l.001-.007a.017.017 0 00-.003-.01l-1.703-2.554a1.75 1.75 0 01-.294-.97V5A3.5 3.5 0 008 1.5zM3 5a5 5 0 0110 0v2.947c0 .05.015.098.042.139l1.703 2.555A1.518 1.518 0 0113.482 13H2.518a1.518 1.518 0 01-1.263-2.36l1.703-2.554A.25.25 0 003 7.947V5z"></path></svg>
+                </div>
+            </div>
+            <div class="nav-create nav-item max flex center-align pointer">
+                <div class="nav-plus">
+                    <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 2a.75.75 0 01.75.75v4.5h4.5a.75.75 0 010 1.5h-4.5v4.5a.75.75 0 01-1.5 0v-4.5h-4.5a.75.75 0 010-1.5h4.5v-4.5A.75.75 0 018 2z"></path></svg>
+                </div>
+                <span class="nav-create-dropdown dropdown"></span>
+
+            </div>
+            <div class="nav-user-profile  max flex center-align pointer">
+                <div class="nav-profile-picture open-modal">
+                    <img class="user-avatar" alt="@lekeodewuyi" src="https://avatars3.githubusercontent.com/u/8889913?s=60&amp;v=4" class="avatar avatar-user " width="20" height="20">
+                </div>
+                <span class="nav-picture-dropdown dropdown"></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="min dropdown-nav hide" style="display: none;">
+        <div class="nav-search nav-item min relative flex center-align">
+            <input type="text" placeholder="Search or jump to...">
+            <span class="search-icon">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="18px" height="18px" viewBox="0 0 18 20" style="enable-background:new 0 0 19 20;" xml:space="preserve">
+                    <path fill="none" stroke="#979A9C" opacity="0.4" d="M3.5,0.5h12c1.7,0,3,1.3,3,3v13c0,1.7-1.3,3-3,3h-12c-1.7,0-3-1.3-3-3v-13C0.5,1.8,1.8,0.5,3.5,0.5z"></path>
+                    <path fill="#979A9C" d="M11.8,6L8,15.1H7.1L10.8,6L11.8,6z"></path>
+                </svg>
+            </span>
+        </div>
+
+        <div class="dropdown-nav-item nav-item">
+            Dashboard
+        </div>
+        <div class="dropdown-nav-item nav-item">
+            Pull requests
+        </div>
+        <div class="dropdown-nav-item nav-item">
+            Issues
+        </div>
+        <div class="dropdown-nav-item nav-item">
+            Explore
+        </div>
+        <div class="dropdown-nav-item nav-item flex center-align open-modal">
+            <img class="dropdown-avatar user-avatar"  src="" alt="user avatar">
+            <p class="profile-username nav-item nav-username username pointer">userName</p>
+        </div>
+        <div class="dropdown-nav-item nav-item flex center-align open-modal">
+            <div class="exit-icon">
+                <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M2 2.75C2 1.784 2.784 1 3.75 1h2.5a.75.75 0 010 1.5h-2.5a.25.25 0 00-.25.25v10.5c0 .138.112.25.25.25h2.5a.75.75 0 010 1.5h-2.5A1.75 1.75 0 012 13.25V2.75zm10.44 4.5H6.75a.75.75 0 000 1.5h5.69l-1.97 1.97a.75.75 0 101.06 1.06l3.25-3.25a.75.75 0 000-1.06l-3.25-3.25a.75.75 0 10-1.06 1.06l1.97 1.97z"></path></svg>
+            </div>
+            <p>Sign out</p>
+        </div>
+    </div>
+
+
+    <div class="main-section flex-col">
+        <div class="main-nav-container max">
+        <div class="main-nav flex">
+            <div class="main-nav-image flex center-align max open-modal">
+                <img class="user-avatar"  src="" alt="user avatar">
+                <p class="profile-username nav-username">lekeodewuyi</p>
+            </div>
+            <div class="main-nav-links flex">
+                <div class="overview main-nav-item flex">
+                    <div class="overview-icon main-nav-icon">
+                        <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"></path></svg>
+                    </div>
+                    <p>Overview</p>
+                </div>
+                <div class="repositories main-nav-item flex" data-selected="true">
+                    <div class="repositories-icon main-nav-icon">
+                        <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
+                    </div>
+                    <p>Repositories</p>
+                    <p class="repositories-count relative">repoCount</p>
+                </div>
+                <div class="projects main-nav-item flex">
+                    <div class="projects-icon main-nav-icon">
+                        <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M1.75 0A1.75 1.75 0 000 1.75v12.5C0 15.216.784 16 1.75 16h12.5A1.75 1.75 0 0016 14.25V1.75A1.75 1.75 0 0014.25 0H1.75zM1.5 1.75a.25.25 0 01.25-.25h12.5a.25.25 0 01.25.25v12.5a.25.25 0 01-.25.25H1.75a.25.25 0 01-.25-.25V1.75zM11.75 3a.75.75 0 00-.75.75v7.5a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75zm-8.25.75a.75.75 0 011.5 0v5.5a.75.75 0 01-1.5 0v-5.5zM8 3a.75.75 0 00-.75.75v3.5a.75.75 0 001.5 0v-3.5A.75.75 0 008 3z"></path></svg>
+                    </div>
+                    <p>Projects</p>
+                </div>
+                <div class="packages main-nav-item flex">
+                    <div class="packages-icon main-nav-icon">
+                        <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.878.392a1.75 1.75 0 00-1.756 0l-5.25 3.045A1.75 1.75 0 001 4.951v6.098c0 .624.332 1.2.872 1.514l5.25 3.045a1.75 1.75 0 001.756 0l5.25-3.045c.54-.313.872-.89.872-1.514V4.951c0-.624-.332-1.2-.872-1.514L8.878.392zM7.875 1.69a.25.25 0 01.25 0l4.63 2.685L8 7.133 3.245 4.375l4.63-2.685zM2.5 5.677v5.372c0 .09.047.171.125.216l4.625 2.683V8.432L2.5 5.677zm6.25 8.271l4.625-2.683a.25.25 0 00.125-.216V5.677L8.75 8.432v5.516z"></path></svg>
+                    </div>
+                    <p>Packages</p>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="relative">
+        <div class="main-app-body flex relative">
+            <div class="side-profile-container">
+                <div class="profile-image max relative">
+                    <div class="set-status max flex center-align absolute">
+                        <div class="set-status-icon">
+                            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zM5 8a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zM5.32 9.636a.75.75 0 011.038.175l.007.009c.103.118.22.222.35.31.264.178.683.37 1.285.37.602 0 1.02-.192 1.285-.371.13-.088.247-.192.35-.31l.007-.008a.75.75 0 111.222.87l-.614-.431c.614.43.614.431.613.431v.001l-.001.002-.002.003-.005.007-.014.019a1.984 1.984 0 01-.184.213c-.16.166-.338.316-.53.445-.63.418-1.37.638-2.127.629-.946 0-1.652-.308-2.126-.63a3.32 3.32 0 01-.715-.657l-.014-.02-.005-.006-.002-.003v-.002h-.001l.613-.432-.614.43a.75.75 0 01.183-1.044h.001z"></path></svg>
+                        </div>
+                        <p class="set-status-text">Set status</p>
+                    </div>
+                    <img style="height:auto;" alt="" class="user-avatar main-avatar pointer  open-modal" src="https://avatars2.githubusercontent.com/u/8889913?s=460&amp;u=527e05314ff69dc9aef3bef5c1195dfc88d2aae0&amp;v=4" width="260" height="260">
+                </div>
+
+                <div class="profile-image min hide relative  open-modal">
+                    <img alt="" class="user-avatar main-avatar min" src="https://avatars2.githubusercontent.com/u/8889913?s=460&amp;u=527e05314ff69dc9aef3bef5c1195dfc88d2aae0&amp;v=4" width="260" height="260">
+                    <div class="profile-name-container min">
+                        <h1 class="profile-name h1">name</h1>
+                        <p class="profile-username">userName</p>
+                    </div>
+                </div>
+                <div class="set-status min hide flex center-align">
+                    <div class="set-status-icon">
+                        <svg class="octicon octicon-smiley" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M1.5 8a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0zM8 0a8 8 0 100 16A8 8 0 008 0zM5 8a1 1 0 100-2 1 1 0 000 2zm7-1a1 1 0 11-2 0 1 1 0 012 0zM5.32 9.636a.75.75 0 011.038.175l.007.009c.103.118.22.222.35.31.264.178.683.37 1.285.37.602 0 1.02-.192 1.285-.371.13-.088.247-.192.35-.31l.007-.008a.75.75 0 111.222.87l-.614-.431c.614.43.614.431.613.431v.001l-.001.002-.002.003-.005.007-.014.019a1.984 1.984 0 01-.184.213c-.16.166-.338.316-.53.445-.63.418-1.37.638-2.127.629-.946 0-1.652-.308-2.126-.63a3.32 3.32 0 01-.715-.657l-.014-.02-.005-.006-.002-.003v-.002h-.001l.613-.432-.614.43a.75.75 0 01.183-1.044h.001z"></path></svg>
+                    </div>
+                    <p class="set-status-text">Set status</p>
+                </div>
+                
+                <div class="profile-user-details">
+                    <div class="profile-name-container max">
+                        <h1 class="profile-name h1">name</h1>
+                        <p class="profile-username">userName</p>
+                    </div>
+                    <p class="profile-bio">bio</p>
+                    <button class="edit-profile-btn btn"> Edit profile</button>
+                    <div class="profile-website flex min hide">
+                        <div class="website-link-icon user-stat-icon">
+                            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+                        </div>
+                        <a class="profile-user-website">websiteUrl</a>
+                    </div>
+                    <div class="user-profile-stats flex wrap">
+                        <div class="followers stat flex">
+                            <div class="followers-icon user-stat-icon">
+                                <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M5.5 3.5a2 2 0 100 4 2 2 0 000-4zM2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z"></path></svg>
+                            </div>
+                            <p class="follower-count user-stat-count">followerCount</p>
+                            <p>followers <span class="user-stat-dot">&middot;</span></p>
+                        </div>
+                        <div class="following stat flex">
+                            <p class="following-count user-stat-count">followingCOunt</p>
+                            <p>following <span class="user-stat-dot">&middot;</span></p>
+                        </div>
+                        <div class="stars stat flex">
+                            <div class="star-icon user-stat-icon">
+                                <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
+                            </div>
+                            <p class="star-count user-stat-count">starCount</p>
+                        </div>
+                    </div>
+                    <div class="profile-website flex max">
+                        <div class="website-link-icon user-stat-icon">
+                            <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
+                        </div>
+                        <a class="profile-user-website">websiteUrl</a>
+                    </div>
+                    <div class="highlights-container max">
+                        <h2 class="highlights-header">Highlights</h2>
+                        <div class="arctic-code-contributor flex">
+                            <div class="arctic-icon user-stat-icon">
+                                <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8.5.75a.75.75 0 00-1.5 0v5.19L4.391 3.33a.75.75 0 10-1.06 1.061L5.939 7H.75a.75.75 0 000 1.5h5.19l-2.61 2.609a.75.75 0 101.061 1.06L7 9.561v5.189a.75.75 0 001.5 0V9.56l2.609 2.61a.75.75 0 101.06-1.061L9.561 8.5h5.189a.75.75 0 000-1.5H9.56l2.61-2.609a.75.75 0 00-1.061-1.06L8.5 5.939V.75z"></path></svg>
+                            </div>
+                            <p>Arctic Vault Contributor</p>
+                        </div>
+                        <div class="pro flex">
+                            <div class="star-icon user-stat-icon">
+                                <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
+                            </div>
+                            <p class="pro-text">PRO</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-nav-container min hide">
+                <div class="main-nav flex">
+                    <div class="main-nav-links flex">
+                        <div class="overview main-nav-item flex">
+                            <div class="overview-icon main-nav-icon">
+                                <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M0 1.75A.75.75 0 01.75 1h4.253c1.227 0 2.317.59 3 1.501A3.744 3.744 0 0111.006 1h4.245a.75.75 0 01.75.75v10.5a.75.75 0 01-.75.75h-4.507a2.25 2.25 0 00-1.591.659l-.622.621a.75.75 0 01-1.06 0l-.622-.621A2.25 2.25 0 005.258 13H.75a.75.75 0 01-.75-.75V1.75zm8.755 3a2.25 2.25 0 012.25-2.25H14.5v9h-3.757c-.71 0-1.4.201-1.992.572l.004-7.322zm-1.504 7.324l.004-5.073-.002-2.253A2.25 2.25 0 005.003 2.5H1.5v9h3.757a3.75 3.75 0 011.994.574z"></path></svg>
+                            </div>
+                            <p>Overview</p>
+                        </div>
+                        <div class="repositories main-nav-item flex" data-selected="true">
+                            <div class="repositories-icon main-nav-icon">
+                                <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
+                            </div>
+                            <p>Repositories</p>
+                            <p class="repositories-count relative">repoCount</p>
+                        </div>
+                        <div class="projects main-nav-item flex">
+                            <div class="projects-icon main-nav-icon">
+                                <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M1.75 0A1.75 1.75 0 000 1.75v12.5C0 15.216.784 16 1.75 16h12.5A1.75 1.75 0 0016 14.25V1.75A1.75 1.75 0 0014.25 0H1.75zM1.5 1.75a.25.25 0 01.25-.25h12.5a.25.25 0 01.25.25v12.5a.25.25 0 01-.25.25H1.75a.25.25 0 01-.25-.25V1.75zM11.75 3a.75.75 0 00-.75.75v7.5a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75zm-8.25.75a.75.75 0 011.5 0v5.5a.75.75 0 01-1.5 0v-5.5zM8 3a.75.75 0 00-.75.75v3.5a.75.75 0 001.5 0v-3.5A.75.75 0 008 3z"></path></svg>
+                            </div>
+                            <p>Projects</p>
+                        </div>
+                        <div class="packages main-nav-item flex">
+                            <div class="packages-icon main-nav-icon">
+                                <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.878.392a1.75 1.75 0 00-1.756 0l-5.25 3.045A1.75 1.75 0 001 4.951v6.098c0 .624.332 1.2.872 1.514l5.25 3.045a1.75 1.75 0 001.756 0l5.25-3.045c.54-.313.872-.89.872-1.514V4.951c0-.624-.332-1.2-.872-1.514L8.878.392zM7.875 1.69a.25.25 0 01.25 0l4.63 2.685L8 7.133 3.245 4.375l4.63-2.685zM2.5 5.677v5.372c0 .09.047.171.125.216l4.625 2.683V8.432L2.5 5.677zm6.25 8.271l4.625-2.683a.25.25 0 00.125-.216V5.677L8.75 8.432v5.516z"></path></svg>
+                            </div>
+                            <p>Packages</p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+            <div class="repository-list-container">
+                <div class="repository-search-container border-bottom">
+                    <div class="repository-search-form flex">
+                        <div class="repository-search-input">
+                            <input type="text" placeholder="Find a repository...">
+                        </div>
+                        <div class="search-form-buttons flex">
+                            <div class="sorters flex">
+                            <div class="repository-type-sorter repository-search-sorter btn">
+                                <span class="sorter-label">Type:</span>
+                                <span>All</span>
+                                <span class="dropdown"></span>
+                            </div>
+                            <div class="repository-language-sorter repository-search-sorter btn">
+                                <span class="sorter-label">Language:</span>
+                                <span>All</span>
+                                <span class="dropdown"></span>
+                            </div>
+                            </div>
+                            <div class="repository-new flex center-align pointer">
+                                <div class="repository-new-icon">
+                                    <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
+                                </div>
+                                <p>New</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="repository-list">
+                    <div class="repository-item hide flex border-bottom">
+                        <div class="repository-item-left-container relative">
+                            <div class="repository-name-and-visibility flex center-align">
+                                <p class="repository-name">Hello world<span class="repository-visibility">Private</span></p>
+                            </div>
+                            <p class="forked-from">Forked from leerob/nextjs-aws-s3</p>
+                            <p class="repository-description">
+                                Example Next.js app to upload photos to an S3 bucket.
+                            </p>
+                            <div class="repository-meta-details flex">
+                                <div class="language-container flex">
+                                    <div class="lang-color">
+
+                                    </div>
+                                    <div class="text">
+                                        Javascript
+                                    </div>
+                                </div>
+                                <div class="fork-container muted-a flex">
+                                    <div class="fork-icon">
+                                        <svg aria-label="fork" viewBox="0 0 16 16" version="1.1" width="16" height="16" role="img"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg>
+                                    </div>
+                                    <div class="fork-count">
+                                        6
+                                    </div>
+                                </div>
+                                <div class="time-updated">
+                                    Updated 14 days ago
+                                </div>
+                            </div>
+                        </div>
+                        <div class="repository-star-btn btn flex center-align">
+                            <div class="star-icon">
+                                <div class="unfilled">
+                                    <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>
+                                </div>
+                                <div class="filled hide">
+                                    <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>
+                                </div>
+                                
+                            </div>
+                            <p class="star-status">Star</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        </div>
+    </div>
+
+    <footer>
+        <p class="big-footer max">
+            <span><a href="https://lekeodewuyi.com" class="web-link">Leke Odewuyi &copy; 2020</a>  ::  </span><span><a href="mailto:hello@lekeodewuyi.com">hello@lekeodewuyi.com</a></span>
+        </p>
+        <div class="made-by-mobile hide">
+            <p class="made-by">
+                <a href="https://lekeodewuyi.com" class="web-link">Leke Odewuyi &copy; 2020</a>
+                ::
+                <a href="mailto:hello@lekeodewuyi.com">hello@lekeodewuyi.com</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+
+    </script>
+</body>
+</html>
