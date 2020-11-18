@@ -156,3 +156,194 @@ const appendStatus = (data) => {
 
 window.addEventListener('resize', appendStatus, false);
 window.addEventListener('orientationchange', appendStatus, false);
+
+
+const appendUserDetails = (data) => {
+
+    const repositoryCount = document.querySelectorAll('.repositories-count');
+    repositoryCount.forEach((count) => {
+        count.innerText = data.repositories.totalCount;
+    });
+  
+    const userAvatar = document.querySelectorAll('.user-avatar');
+    userAvatar.forEach(img => {
+        img.src = data.avatarUrl;
+    })
+  
+    if (data.status === null) {
+        status = {
+            emojiHTML: null,
+            message: null
+        }
+    }
+  
+    if ( data.status !== null) {
+        updateStatus(data.status);
+    }
+  
+    appendStatus(status);
+  
+    const profileName = document.querySelectorAll('.profile-name');
+    profileName.forEach((name) => {
+        name.innerText = data.name;
+    });
+  
+    const profileUserName = document.querySelectorAll('.profile-username');
+    profileUserName.forEach((username) => {
+        username.innerText = data.login;
+    });
+  
+    const profileBio = document.querySelectorAll('.profile-bio');
+    profileBio.forEach((bio) => {
+        bio.innerText = data.bio;
+    })
+  
+    const followerCount = document.querySelector('.follower-count');
+    followerCount.innerText = data.followers.totalCount;
+  
+    const followingCount = document.querySelector('.following-count');
+    followingCount.innerText = data.following.totalCount;
+  
+    const starCount = document.querySelector('.star-count');
+    starCount.innerText = data.starredRepositories.totalCount;
+  
+    const profileWebsite = document.querySelectorAll('.profile-user-website');
+    profileWebsite.forEach((site) => {
+        site.innerText = data.websiteUrl;
+        site.setAttribute('href', data.websiteUrl);
+    });
+  
+  
+  
+    const repositories = data.repositories.edges;
+  
+    console.log(repositories)
+  
+    const repoList = document.querySelector('.repository-list');
+  
+    repoList.innerHTML = "";
+  
+    for (let i = 0; i < repositories.length; i++) {
+  
+        const repo = repositories[i].node
+  
+        const repoItem = document.createElement('div');
+        repoItem.classList.add('repository-item', 'flex', 'border-bottom');
+  
+        const repoDetails = document.createElement('div');
+        repoDetails.classList.add('repository-item-left-container', 'relative');
+  
+        const repoNameAndPrivacy = document.createElement('div');
+        repoNameAndPrivacy.classList.add('repository-name-and-visibility', 'center-align');
+  
+        const repoName = document.createElement('p');
+        repoName.classList.add('repository-name');
+        repoName.innerHTML = `<a href=https://github.com/${data.login}/${repo.name}>${repo.name}</a>`;
+  
+        const repoPrivacy = document.createElement('span');
+        repoPrivacy.innerText = "Private";
+  
+        if (repo.isPrivate) {
+            repoPrivacy.classList.add('repository-visibility')
+            repoName.innerHTML = `<a href=https://github.com/${data.login}/${repo.name}>${repo.name}</a> <span class="repository-visibility">Private</span>`
+        } else {
+            repoPrivacy.classList.add('hide');
+        }
+        appendChildFunc(repoNameAndPrivacy, [repoName]);
+  
+      
+  
+        const forkedFrom = document.createElement('p');
+        if (repo.isFork) {
+            forkedFrom.innerHTML = `Forked from <a class="muted-a" href=https://github.com/${repo.parent.nameWithOwner}>${repo.parent.nameWithOwner}</a>`;
+            forkedFrom.classList.add('forked-from');
+        }
+  
+        const repoDescription = document.createElement('p');
+        if (repo.descriptionHTML !== null) {
+            repoDescription.innerHTML = repo.descriptionHTML;
+            repoDescription.classList.add('repository-description');
+        }
+  
+  
+        const repoMetaDetails = document.createElement('div');
+        repoMetaDetails.classList.add('repository-meta-details', 'flex');
+  
+        const repoLanguageContainer = document.createElement('div');
+        repoLanguageContainer.classList.add('language-container', 'flex');
+  
+        if (repo.primaryLanguage !== null) {
+        
+            const repoColor = document.createElement('div');
+            repoColor.classList.add('lang-color');
+            repoColor.style.backgroundColor = repo.primaryLanguage.color;
+    
+            const repoLang = document.createElement('div');
+            repoLang.classList.add('text');
+            repoLang.innerText = repo.primaryLanguage.name;
+  
+  
+            appendChildFunc(repoLanguageContainer, [repoColor, repoLang]);
+            repoMetaDetails.appendChild(repoLanguageContainer);
+        }
+  
+        if (repo.isFork) {
+  
+            const forkContainer = document.createElement('div');
+            forkContainer.classList.add('fork-container', 'muted-a', 'flex');
+  
+            const forkIcon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            forkIcon.classList.add('fork-icon');
+            forkIcon.setAttribute('viewBox', '0 0 16 16');
+            forkIcon.innerHTML = `<path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path>`;
+  
+            const forkCount = document.createElement('div');
+            forkCount.classList.add('fork-count');
+            forkCount.innerText = repo.parent.forkCount;
+  
+            appendChildFunc(forkContainer, [forkIcon, forkCount]);
+            repoMetaDetails.appendChild(forkContainer);
+        }
+  
+        const lastUpdated = document.createElement('div');
+        lastUpdated.classList.add('time-updated');
+  
+        const dateNow = Date.now();
+        const dateUpdated = !repo.isFork ? new Date (repo.updatedAt) : new Date (repo.parent.updatedAt);
+        lastUpdated.innerText = `${relativeTime(dateNow, dateUpdated)}`;
+    
+        repoMetaDetails.appendChild(lastUpdated);
+    
+    
+        const repoStarBtn = document.createElement('div');
+        repoStarBtn.classList.add('repository-star-btn', 'btn', 'flex', 'center-align');
+      
+        const starIcon = document.createElement('div');
+        starIcon.classList.add('star-icon');
+    
+        const starIconFilled = document.createElement('div');
+        starIconFilled.classList.add('filled', 'hide');
+        starIconFilled.innerHTML = `<svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>`;
+    
+        const starIconUnfilled = document.createElement('div');
+        starIconUnfilled.classList.add('unfilled');
+        starIconUnfilled.innerHTML = `<svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z"></path></svg>`
+    
+        const starText = document.createElement('p');
+        starText.classList.add('star-status');
+        starText.innerText = 'Star';
+  
+  
+        appendChildFunc(starIcon, [starIconFilled, starIconUnfilled]);
+    
+        appendChildFunc(repoStarBtn, [starIcon, starText]);
+    
+    
+        appendChildFunc(repoDetails, [repoNameAndPrivacy, forkedFrom, repoDescription, repoMetaDetails]);
+        appendChildFunc(repoItem, [repoDetails, repoStarBtn]);
+        repoList.appendChild(repoItem);
+    
+    }
+    appendStar();
+    
+}
