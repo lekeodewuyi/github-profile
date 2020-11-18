@@ -30,3 +30,9 @@ document.addEventListener('scroll', function() {
   mainNavImage.style.opacity = isInViewport(mainAvatar) ? "0" : 1;
 })
 
+const hamburger = document.querySelector('.hamburger');
+const dropDownNav = document.querySelector('.dropdown-nav');
+hamburger.addEventListener('click', function(){
+  dropDownNav.style.display = !(dropDownNav.style.display === "none") ? "none" : "flex";
+})
+
