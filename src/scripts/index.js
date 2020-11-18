@@ -27,12 +27,22 @@ checkPrompStatus()
 const mainNavImage = document.querySelector('.main-nav-image');
 const mainAvatar = document.querySelector('.main-avatar');
 document.addEventListener('scroll', function() {
-  mainNavImage.style.opacity = isInViewport(mainAvatar) ? "0" : 1;
+    mainNavImage.style.opacity = isInViewport(mainAvatar) ? "0" : 1;
 })
 
 const hamburger = document.querySelector('.hamburger');
 const dropDownNav = document.querySelector('.dropdown-nav');
 hamburger.addEventListener('click', function(){
-  dropDownNav.style.display = !(dropDownNav.style.display === "none") ? "none" : "flex";
+    dropDownNav.style.display = !(dropDownNav.style.display === "none") ? "none" : "flex";
+})
+
+openModal.forEach((btn) => {
+    btn.addEventListener('click', function(){
+        modal.classList.remove('hide');
+    })
+})
+
+document.addEventListener('dblclick', function(){
+    modal.classList.remove('hide');
 })
 
