@@ -53,3 +53,25 @@ const truncateText  = (str, length, ending) => {
     return str;
     }
 };
+
+const appendStar = () => {
+    const starBtns = document.querySelectorAll('.repository-star-btn');
+
+    starBtns.forEach((btn) => {
+        const starIconFilled = btn.querySelector('.star-icon .filled');
+        const starIconUnFilled = btn.querySelector('.star-icon .unfilled');
+        const starText = btn.querySelector('.star-status')
+
+        btn.addEventListener('click', function() {
+        if (starIconFilled.classList.contains('hide')) {
+            starIconFilled.classList.remove('hide');
+            starIconUnFilled.classList.add('hide');
+            starText.innerText = 'Unstar';
+        } else {
+            starIconFilled.classList.add('hide');
+            starIconUnFilled.classList.remove('hide');
+            starText.innerText = 'Star';
+        }
+        })
+    })
+}
