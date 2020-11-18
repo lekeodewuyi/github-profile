@@ -62,7 +62,7 @@ const queryFunc = (username) => {
 
   // Also I wanted everything to happen in the forntend/ all in the browser
   const githubData = {
-    token: "45fe2b2a0f0cf96525ad7da04aa46d9c323b192a",
+    token: "8f128f89c65414e0b5dc1ad18636dbddb53fd7b6",
     username: "lekeodewuyi"
   }
 
