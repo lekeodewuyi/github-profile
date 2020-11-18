@@ -33,3 +33,9 @@ const relativeTime = (current, previous) => {
       return `Updated on ${months[previous.getUTCMonth()]} ${previous.getUTCDate()}`  
     }
   }
+
+  const appendChildFunc = (parent, children) => {
+    for (let i = 0; i < children.length; i++) {
+      parent.appendChild(children[i])
+    }
+  }
