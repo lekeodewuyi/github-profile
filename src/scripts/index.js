@@ -23,3 +23,10 @@ const checkPrompStatus = () => {
 }
 
 checkPrompStatus()
+
+const mainNavImage = document.querySelector('.main-nav-image');
+const mainAvatar = document.querySelector('.main-avatar');
+document.addEventListener('scroll', function() {
+  mainNavImage.style.opacity = isInViewport(mainAvatar) ? "0" : 1;
+})
+
