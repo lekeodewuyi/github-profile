@@ -153,3 +153,6 @@ const appendStatus = (data) => {
         })
     }
 }
+
+window.addEventListener('resize', appendStatus, false);
+window.addEventListener('orientationchange', appendStatus, false);
