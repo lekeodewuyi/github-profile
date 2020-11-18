@@ -46,3 +46,14 @@ document.addEventListener('dblclick', function(){
     modal.classList.remove('hide');
 })
 
+closeModal.addEventListener('click', function(){
+    modal.classList.add('hide');
+    newUserName.value = "";
+  
+    if (checkbox.checked) {
+        localStorage.setItem('dontShow', "true");
+    } else {
+        localStorage.setItem('dontShow', "false");
+    }
+})
+
