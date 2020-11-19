@@ -1,4 +1,4 @@
-# GitHub Profile - Repository Tab
+# GitHub Profile/Repository Page
 
 A recreation of my GitHub profile page. It loads live data from the GitHub GraphQL API - the first 20 repositories sorted by the last updated(desc order) property.
 
