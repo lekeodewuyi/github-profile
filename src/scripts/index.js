@@ -74,14 +74,15 @@ const retrieveData = (username) => {
     )
     .then((data) => {
         const result = data.data.user;
-        console.log(result);
   
         appendUserDetails(result)
   
         if (result.name !== null) {
             nowShowing.innerHTML = `Now showing: <span class="now-showing-name">${result.name}</span>'s profile`
+            document.title = `GitHub Profile - ${result.name}`
         } else {
             nowShowing.innerHTML = `Now showing: <span class="now-showing-name">${result.login}</span>'s profile`
+            document.title = `GitHub Profile - ${result.login}`
         }
         loader.classList.remove('inline-block');
     })
@@ -89,9 +90,8 @@ const retrieveData = (username) => {
         if (username !== "lekeodewuyi") {
             retrieveData("lekeodewuyi");
         }
-        console.log('hey');
         loader.classList.remove('inline-block');
-        console.error(error.json());
+        console.error(error);
     })
   
   }
@@ -125,10 +125,8 @@ const setStatusText = document.querySelectorAll('.set-status-text');
   
 const appendStatus = (data) => {
     data = status;
-    console.log("Im here y'all")
 
     let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-    console.log(vw)
 
     if (data.emojiHTML !==null) {
         setStatusIcon.forEach((icon) => {
@@ -216,8 +214,7 @@ const appendUserDetails = (data) => {
   
   
     const repositories = data.repositories.edges;
-  
-    console.log(repositories)
+
   
     const repoList = document.querySelector('.repository-list');
   
