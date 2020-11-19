@@ -76,4 +76,14 @@ const appendStar = () => {
     })
 }
 
-export { isInViewport, relativeTime, appendChildFunc, appendStar, truncateText };
+
+const updatePageIcon = (image) => {
+    
+    const link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/x-icon';
+    link.rel = 'shortcut icon';
+    link.href = image;
+    document.getElementsByTagName('head')[0].appendChild(link);
+}
+
+export { isInViewport, relativeTime, appendChildFunc, appendStar, truncateText, updatePageIcon };

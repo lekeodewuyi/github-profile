@@ -1,5 +1,5 @@
 import {queryFunc, githubData} from './util/github_data.js';
-import {isInViewport, relativeTime, appendChildFunc, appendStar, truncateText} from './util/helper.js';
+import {isInViewport, relativeTime, appendChildFunc, appendStar, truncateText, updatePageIcon} from './util/helper.js';
 
 
 const checkbox = document.querySelector('.checkbox');
@@ -167,6 +167,8 @@ const appendUserDetails = (data) => {
     userAvatar.forEach(img => {
         img.src = data.avatarUrl;
     })
+
+    updatePageIcon(data.avatarUrl);
   
     if (data.status === null) {
         status = {
