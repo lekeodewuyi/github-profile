@@ -1,6 +1,8 @@
 # GitHub Profile - Repository Tab
 
-A recreation of my GitHub profile page. It loads live data from the GitHub GraphQL API. the first 20 repositories sorted by the last updated(desc order) property. - It is designed to look exactly like the GitHub repository tab. The links in the listed repository are active - clicking a repository name will go to such repository or and clicking a forked repository's parent link (Forked from...<link>) will go the corresponding parent repository.
+A recreation of my GitHub profile page. It loads live data from the GitHub GraphQL API - the first 20 repositories sorted by the last updated(desc order) property.
+
+It is designed to look exactly like the GitHub repository tab. The links in the listed repository are active - clicking a repository name will go to such repository or and clicking a forked repository's parent link (Forked from...<link>) will go the corresponding parent repository.
 
 Even though it loads my profile/repository data by default, it can load any user's data when their username is entered.
 
