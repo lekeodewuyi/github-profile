@@ -13,9 +13,9 @@
 </head>
 <body>
     <div class="modal flex-col justify-center">
-        <div class="modal-close-btn absolute pointer" onclick="document.querySelector('.modal').className = 'modal flex-col justify-center hide'">
+        <button aria-label="Close" class="modal-close-btn absolute pointer" onclick="document.querySelector('.modal').className = 'modal flex-col justify-center hide'">
             <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path></svg>
-        </div>
+        </button>
         <p>While the default data retrieved is mine, any user's public repository data can be loaded on this page simply by entering the user's username below. <br> * If an invalid username is used, the requested/ retrieved data falls back to mine.</p>
         <div>
             <input class="modal-input" type="text" placeholder="Enter any GitHub username" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false">
@@ -137,7 +137,7 @@
                     </div>
                     <p>Overview</p>
                 </div>
-                <div class="repositories main-nav-item flex" data-selected="true">
+                <div class="repositories main-nav-item flex" data-selected="true" aria-label="Repositories">
                     <div class="repositories-icon main-nav-icon">
                         <svg height="16" viewBox="0 0 16 16" version="1.1" width="16" aria-hidden="true"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
                     </div>
@@ -174,7 +174,7 @@
                 </div>
 
                 <div class="profile-image min hide relative  open-modal">
-                    <img alt="" class="user-avatar main-avatar min" src="https://avatars2.githubusercontent.com/u/8889913?s=460&amp;u=527e05314ff69dc9aef3bef5c1195dfc88d2aae0&amp;v=4" width="260" height="260">
+                    <img alt="" class="user-avatar main-avatar min pointer" src="https://avatars2.githubusercontent.com/u/8889913?s=460&amp;u=527e05314ff69dc9aef3bef5c1195dfc88d2aae0&amp;v=4" width="260" height="260">
                     <div class="profile-name-container min">
                         <h1 class="profile-name h1">name</h1>
                         <p class="profile-username">userName</p>
@@ -193,7 +193,7 @@
                         <p class="profile-username">userName</p>
                     </div>
                     <p class="profile-bio">bio</p>
-                    <button class="edit-profile-btn btn"> Edit profile</button>
+                    <button class="edit-profile-btn btn  open-modal"> Edit profile</button>
                     <div class="profile-website flex min hide">
                         <div class="website-link-icon user-stat-icon">
                             <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.775 3.275a.75.75 0 001.06 1.06l1.25-1.25a2 2 0 112.83 2.83l-2.5 2.5a2 2 0 01-2.83 0 .75.75 0 00-1.06 1.06 3.5 3.5 0 004.95 0l2.5-2.5a3.5 3.5 0 00-4.95-4.95l-1.25 1.25zm-4.69 9.64a2 2 0 010-2.83l2.5-2.5a2 2 0 012.83 0 .75.75 0 001.06-1.06 3.5 3.5 0 00-4.95 0l-2.5 2.5a3.5 3.5 0 004.95 4.95l1.25-1.25a.75.75 0 00-1.06-1.06l-1.25 1.25a2 2 0 01-2.83 0z"></path></svg>
@@ -231,7 +231,7 @@
                             <div class="arctic-icon user-stat-icon">
                                 <svg viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8.5.75a.75.75 0 00-1.5 0v5.19L4.391 3.33a.75.75 0 10-1.06 1.061L5.939 7H.75a.75.75 0 000 1.5h5.19l-2.61 2.609a.75.75 0 101.061 1.06L7 9.561v5.189a.75.75 0 001.5 0V9.56l2.609 2.61a.75.75 0 101.06-1.061L9.561 8.5h5.189a.75.75 0 000-1.5H9.56l2.61-2.609a.75.75 0 00-1.061-1.06L8.5 5.939V.75z"></path></svg>
                             </div>
-                            <p>Arctic Vault Contributor</p>
+                            <p>Arctic Code Vault Contributor</p>
                         </div>
                         <div class="pro flex">
                             <div class="star-icon user-stat-icon">
@@ -283,16 +283,16 @@
                         </div>
                         <div class="search-form-buttons flex">
                             <div class="sorters flex">
-                            <div class="repository-type-sorter repository-search-sorter btn">
+                            <button class="repository-type-sorter repository-search-sorter btn">
                                 <span class="sorter-label">Type:</span>
                                 <span>All</span>
-                                <span class="dropdown"></span>
-                            </div>
-                            <div class="repository-language-sorter repository-search-sorter btn">
+                                <span class="sorter-dropdown dropdown"></span>
+                            </button>
+                            <button class="repository-language-sorter repository-search-sorter btn">
                                 <span class="sorter-label">Language:</span>
                                 <span>All</span>
-                                <span class="dropdown"></span>
-                            </div>
+                                <span class="sorter-dropdown dropdown"></span>
+                            </button>
                             </div>
                             <div class="repository-new flex center-align pointer">
                                 <div class="repository-new-icon">
