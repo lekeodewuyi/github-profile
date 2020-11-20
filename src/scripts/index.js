@@ -26,8 +26,10 @@ checkPrompStatus()
 
 const mainNavImage = document.querySelector('.main-nav-image');
 const mainAvatar = document.querySelector('.main-avatar');
+const maxUserName = document.querySelector('.max-username');
 document.addEventListener('scroll', function() {
-    mainNavImage.style.opacity = isInViewport(mainAvatar) ? "0" : 1;
+    mainNavImage.style.opacity = isInViewport(mainAvatar) ? "0" : "1";
+    maxUserName.style.opacity = isInViewport(mainAvatar) ? "1" : "0";
 })
 
 const hamburger = document.querySelector('.hamburger');
