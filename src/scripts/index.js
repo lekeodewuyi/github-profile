@@ -48,7 +48,7 @@ document.addEventListener('dblclick', function(){
     modal.classList.remove('hide');
 })
 
-closeModal.addEventListener('click', function(){
+const closePrompt = () => {
     modal.classList.add('hide');
     newUserName.value = "";
   
@@ -57,13 +57,17 @@ closeModal.addEventListener('click', function(){
     } else {
         localStorage.setItem('dontShow', "false");
     }
+}
+
+closeModal.addEventListener('click', function(){
+    closePrompt();
 })
 
 document.addEventListener('click', function(e){
     const target = e.target;
     if (!modal.classList.contains('hide')) {
         if (!modal.contains(target)) {
-            modal.classList.add('hide');
+            closePrompt()
         }
     }
 }, true)
