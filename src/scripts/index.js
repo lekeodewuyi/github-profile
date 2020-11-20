@@ -57,6 +57,15 @@ closeModal.addEventListener('click', function(){
     }
 })
 
+document.addEventListener('click', function(e){
+    const target = e.target;
+    if (!modal.classList.contains('hide')) {
+        if (!modal.contains(target)) {
+            modal.classList.add('hide');
+        }
+    }
+}, true)
+
 const retrieveData = (username) => {
   
     loader.classList.add('inline-block');
@@ -314,7 +323,7 @@ const appendUserDetails = (data) => {
         repoMetaDetails.appendChild(lastUpdated);
     
     
-        const repoStarBtn = document.createElement('div');
+        const repoStarBtn = document.createElement('button');
         repoStarBtn.classList.add('repository-star-btn', 'btn', 'flex', 'center-align');
       
         const starIcon = document.createElement('div');
