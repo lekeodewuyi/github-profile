@@ -38,6 +38,14 @@ hamburger.addEventListener('click', function(){
     dropDownNav.style.display = !(dropDownNav.style.display === "none") ? "none" : "flex";
 })
 
+const updateDropDownNav = () => {
+    let vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+    if (vw > 768 && dropDownNav.style.display === "flex") {
+        dropDownNav.style.display = "none";
+    }
+}
+
+
 openModal.forEach((btn) => {
     btn.addEventListener('click', function(){
         modal.classList.remove('hide');
@@ -167,8 +175,15 @@ const appendStatus = (data) => {
     }
 }
 
-window.addEventListener('resize', appendStatus, false);
-window.addEventListener('orientationchange', appendStatus, false);
+window.addEventListener('resize', () => {
+    appendStatus();
+    updateDropDownNav();
+}, false);
+
+window.addEventListener('orientationchange', () => {
+    appendStatus;
+    updateDropDownNav;
+}, false);
 
 
 const appendUserDetails = (data) => {
