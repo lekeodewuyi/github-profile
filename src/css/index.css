@@ -735,6 +735,10 @@ input[type="text"] {
     display: none;
 }
 
+.min {
+    display: none;
+}
+
 .hamburger {
     fill: white;
     align-self: center;
@@ -1134,9 +1138,4 @@ footer .big-footer {
 
 .inline-block {
     display: inline-block;
-}
-
-
-.min {
-    display: none;
 }
